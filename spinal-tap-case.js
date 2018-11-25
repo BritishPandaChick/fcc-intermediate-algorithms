@@ -1,8 +1,12 @@
 function spinalCase(str) {
-  str = str.replace(/([a-z])(A-Z)/g, '$1 $2').toLowerCase();
-  //separate string into words and replace by adding spaces
-  return str.replace(/\s | _ / g, '-');
-  //find spaces and replace with '-'
+  //Create a variable for white space and underscores
+  var regex = /\s+|_+/g;
+
+  //Replace lower-upper case to lower-space-uppercase
+  str = str.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+  //Replace space and underscore with -
+  return str.replace(regex, '-').toLowerCase();
 }
 
 spinalCase('This Is Spinal Tap');
