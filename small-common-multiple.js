@@ -1,38 +1,31 @@
 function smallestCommons(arr) {
-  var min = Math.min(arr[0], arr[1]);
-  //find minimum number in array
-  var max = Math.max(arr[0], arr[1]);
-  //find maximum number in array
-  var range = [];
-  //find the range and put in array
+  // sor array from greatest to lowest
+  arr.sort(function(a,b) {
+    return b - a;
+  });
 
-  for (var x=min; x <= max; x++) {
-    range.push(x);
-    //Populate numbers in range and push to array
+  //create new array and add values from greater to smaller from original array
+  let newArr = [];
+  for (let i=arr[0]; i >= arr[1]; i--) {
+    newArr.push(i);
   }
 
-  var a = Math.abs(range[0]);
-  //find absolute position for the range
-  for (var i=1; i < range.length; i++) {
-    //iterate through range array
-    var b = Math.abs(range[i]);
-    //find absolute position for range[i]
-    var c = a;
+  //variables that need to be declared outside the loops
+  let quot = 0;
+  let loop = 1;
+  let n;
 
-    while (a && b) {
-      //continue looping as long as A & B are "truthy"
-      if (a > b) {
-        //check for the conditions
-        a %= b;
-        //change value of a by mutating the value
-      } else {
-        b % a;
+  //code runs while n is not the same as the array length
+  do {
+    quot = newArr[0] * loop * newArr[1];
+    for (n=2; n < newArr.length; n++) {
+      if (quot % newArr[n] !== 0) {
+        break;
       }
     }
-    a = Math.abs(c * range[i] / (a + b));
-    //change value of a by multiplying value of c with current range number then divide by sum of a & b
-  }
-  return a;
+    loop++;
+  } while (n !== newArr.length);
+  return quot;
 }
 
 smallestCommons([1, 5]);
